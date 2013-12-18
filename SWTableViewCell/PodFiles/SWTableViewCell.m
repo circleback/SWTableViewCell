@@ -392,6 +392,25 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
     }
 }
 
+- (void)showRightUtilityButtonsAnimated:(BOOL)animated {
+    // Scroll back to center
+    [self.cellScrollView setContentOffset:CGPointMake([self rightUtilityButtonsWidth], 0) animated:animated];
+    _cellState = kCellStateRight;
+    
+    if ([_delegate respondsToSelector:@selector(swipeableTableViewCell:scrollingToState:)]) {
+        [_delegate swipeableTableViewCell:self scrollingToState:kCellStateLeft];
+    }
+}
+
+- (void)showLeftUtilityButtonsAnimated:(BOOL)animated {
+    // Scroll back to center
+    [self.cellScrollView setContentOffset:CGPointMake(-1*[self leftUtilityButtonsWidth], 0) animated:animated];
+    _cellState = kCellStateLeft;
+    
+    if ([_delegate respondsToSelector:@selector(swipeableTableViewCell:scrollingToState:)]) {
+        [_delegate swipeableTableViewCell:self scrollingToState:kCellStateLeft];
+    }
+}
 
 #pragma mark - Setup helpers
 
@@ -558,6 +577,10 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 {
     self.tapGestureRecognizer.enabled = YES;
     self.containingTableView.scrollEnabled = YES;
+
+    if ([_delegate respondsToSelector:@selector(swipeableTableViewCell:scrollFinished:)]) {
+        [_delegate swipeableTableViewCell:self scrollFinished:_cellState];
+    }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView

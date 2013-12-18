@@ -28,6 +28,7 @@ typedef enum {
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index;
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index;
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell scrollingToState:(SWCellState)state;
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell scrollFinished:(SWCellState)state;
 
 @end
 
@@ -43,5 +44,6 @@ typedef enum {
 - (void)setCellHeight:(CGFloat)height;
 - (void)setBackgroundColor:(UIColor *)backgroundColor;
 - (void)hideUtilityButtonsAnimated:(BOOL)animated;
-
+- (void)showRightUtilityButtonsAnimated:(BOOL)animated;
+- (void)showLeftUtilityButtonsAnimated:(BOOL)animated;
 @end
